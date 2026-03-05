@@ -32,8 +32,7 @@ const experiences: Experience[] = [
     startDate: "Sept 2023",
     endDate: "Present",
     current: true,
-    description:
-      "Lead engineer on a B2B SaaS platform serving 200+ enterprise clients. Architecting and building core product features across the full stack.",
+    description: "",
     achievements: [
         "Developed RESTful APIs for CannDr Apps, ensuring secure and scalable backend services",
         "Developed the Web Admin Portal for CannDr Apps to streamline operational management and reporting.",
@@ -55,8 +54,7 @@ const experiences: Experience[] = [
     startDate: "Dec 2021",
     endDate: "Aug 2023",
     current: false,
-    description:
-      "Delivered 15+ client web projects end-to-end, from discovery to deployment. Worked closely with designers and clients to build custom web solutions.",
+    description: "",
     achievements: [
         "Design and build Social WiFi Web using Laravel and React.js, handling both backend and frontend development",
         "Translated Figma designs into responsive and reusable frontend components",
@@ -79,8 +77,7 @@ const experiences: Experience[] = [
     startDate: "Aug 2021",
     endDate: "Dec 2021",
     current: false,
-    description:
-      "Contracted to build and maintain the frontend of a fintech startup's web dashboard. Worked in an agile team with weekly sprints.",
+    description: "",
     achievements: [
         "Developed RESTful APIs for Web Admin, Landing Page, and Mobile Applications using Express.js",
         "Designed and managed MongoDB database structure to support application data flow",
@@ -100,8 +97,7 @@ const experiences: Experience[] = [
     startDate: "Jun 2024",
     endDate: "Feb 2026",
     current: false,
-    description:
-      "Internship role building company and product websites for local SME clients. First professional exposure to production PHP and Laravel development.",
+    description: "",
     achievements: [
         "Developed and maintained backend services for the Climate Budget Tagging (CBT) platform using Laravel, ensuring secure and scalable API architecture",
         "Implemented frontend features using React.js and TypeScript, converting UI designs into reusable and maintainable components",
@@ -121,8 +117,7 @@ const experiences: Experience[] = [
     startDate: "Jul 2023",
     endDate: "Dec 2023",
     current: false,
-    description:
-      "Internship role building company and product websites for local SME clients. First professional exposure to production PHP and Laravel development.",
+    description: "",
     achievements: [
         "Developed and maintained the Seeds web application using Next.js, improving user experience",
         "Built and optimized the Seeds Admin Dashboard to streamline internal operations and improve data management efficiency",
