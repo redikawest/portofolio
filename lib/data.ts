@@ -73,11 +73,11 @@ export const skillCategories: SkillCategory[] = [
     color: "from-cyan-400 to-sky-500",
     skills: [
       { name: "Next.js", level: 95 },
-      { name: "React", level: 93 },
-      { name: "TypeScript", level: 90 },
+      { name: "React.js", level: 93 },
       { name: "Tailwind CSS", level: 92 },
+      { name: "TypeScript", level: 90 },
       { name: "Framer Motion", level: 80 },
-      { name: "Vue.js", level: 78 },
+      { name: "Laravel Livewire", level: 80 },
     ],
   },
   {
@@ -87,10 +87,10 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Laravel", level: 95 },
       { name: "Node.js", level: 85 },
+      { name: "Express.js", level: 85 },
       { name: "PHP", level: 92 },
       { name: "REST API", level: 95 },
-      { name: "GraphQL", level: 78 },
-      { name: "Microservices", level: 75 },
+      { name: "Microservices", level: 80 },
     ],
   },
   {
@@ -98,10 +98,9 @@ export const skillCategories: SkillCategory[] = [
     icon: "Database",
     color: "from-emerald-400 to-teal-600",
     skills: [
-      { name: "PostgreSQL", level: 90 },
+      { name: "PostgreSQL", level: 80 },
       { name: "MySQL", level: 88 },
       { name: "Redis", level: 82 },
-      { name: "MongoDB", level: 75 },
       { name: "Prisma ORM", level: 85 },
       { name: "Eloquent", level: 95 },
     ],
@@ -109,14 +108,13 @@ export const skillCategories: SkillCategory[] = [
   {
     name: "DevOps",
     icon: "Cloud",
-    color: "from-orange-400 to-amber-500",
+    color: "from-cyan-400 to-sky-500",
     skills: [
-      { name: "AWS (EC2/S3/RDS)", level: 82 },
-      { name: "Docker", level: 85 },
-      { name: "GitHub Actions", level: 88 },
-      { name: "Nginx", level: 80 },
-      { name: "Linux (Ubuntu)", level: 85 },
-      { name: "CI/CD Pipelines", level: 82 },
+      { name: "Docker", level: 65 },
+      { name: "GitHub Actions", level: 60 },
+      { name: "Nginx", level: 75 },
+      { name: "Linux (Ubuntu)", level: 65 },
+      { name: "CI/CD Pipelines", level: 55 },
     ],
   },
 ];
