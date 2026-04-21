@@ -1,94 +1,95 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import Image from "next/image";
+import { Eye } from "lucide-react";
 import { Project } from "@/types";
-import { cardHover } from "@/hooks/useAnimationVariants";
+import { fadeUp } from "@/hooks/useAnimationVariants";
 
 interface ProjectCardProps {
   project: Project;
   index: number;
+  onOpen: (project: Project) => void;
 }
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
+export default function ProjectCard({ project, index, onOpen }: ProjectCardProps) {
   return (
     <motion.article
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.5,
-            ease: [0.22, 1, 0.36, 1],
-            delay: index * 0.07,
-          },
-        },
-      }}
-      initial="rest"
-      whileHover="hover"
-      className="group relative card-glass rounded-2xl overflow-hidden flex flex-col"
+      variants={fadeUp}
+      custom={index}
+      className="group flex flex-col rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors duration-300 overflow-hidden cursor-pointer"
+      onClick={() => onOpen(project)}
     >
-      {/* Gradient accent line */}
-      <div className="h-[2px] bg-gradient-to-r from-cyan-400 via-sky-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Image with hover overlay */}
+      <div className="relative h-44 overflow-hidden bg-gray-100 dark:bg-gray-800">
+        <motion.div
+          className="absolute inset-0"
+          whileHover={{ scale: 1.06 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <Image
+            src={project.image ?? "/projects/placeholder.svg"}
+            alt={project.title}
+            fill
+            className="object-cover"
+          />
+        </motion.div>
 
-      <motion.div
-        variants={cardHover}
-        className="flex flex-col h-full p-6"
-      >
-        {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-50 to-violet-50 dark:from-cyan-950/50 dark:to-violet-950/50 border border-gray-200/60 dark:border-gray-700/60 flex items-center justify-center text-lg font-display font-bold text-transparent bg-clip-text bg-gradient-to-br from-cyan-500 to-violet-500">
-            {project.title.charAt(0)}
+        {/* Hover overlay */}
+        <motion.div
+          className="absolute inset-0 bg-indigo-900/70 flex flex-col items-center justify-center gap-2"
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.25 }}
+        >
+          <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+            <Eye size={18} className="text-white" />
           </div>
-          <div className="flex items-center gap-2">
-            {project.githubUrl !== "" &&
-              <motion.a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label={`${project.title} GitHub`}
-              >
-                <Github size={15} />
-              </motion.a>
-            }
-            <motion.a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-950/50 transition-all duration-200"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label={`${project.title} Live Demo`}
-            >
-              <ExternalLink size={15} />
-            </motion.a>
-          </div>
+          <span className="text-white text-xs font-mono tracking-widest uppercase">
+            View Details
+          </span>
+        </motion.div>
+
+        {/* Featured badge */}
+        {project.featured && (
+          <span className="absolute top-3 left-3 px-2 py-0.5 rounded-md text-[10px] font-mono bg-indigo-500/90 text-white">
+            Featured
+          </span>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-5">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="font-display font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200 leading-snug">
+            {project.title}
+          </h3>
+          <span className="font-display font-bold text-lg text-gray-200 dark:text-gray-800 select-none shrink-0 ml-2">
+            {String(index + 1).padStart(2, "0")}
+          </span>
         </div>
 
-        {/* Content */}
-        <h3 className="font-display font-bold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-200">
-          {project.title}
-        </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-body flex-1 mb-5">
+        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-body flex-1 mb-4 line-clamp-2">
           {project.description}
         </p>
 
         {/* Tech stack */}
         <div className="flex flex-wrap gap-1.5">
-          {project.techStack.map((tech) => (
+          {project.techStack.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-gray-50 dark:bg-gray-800/60 text-gray-600 dark:text-gray-400 border border-gray-200/80 dark:border-gray-700/60"
+              className="px-2 py-0.5 rounded-md text-[10px] font-mono bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
             >
               {tech}
             </span>
           ))}
+          {project.techStack.length > 4 && (
+            <span className="px-2 py-0.5 rounded-md text-[10px] font-mono bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 border border-gray-200 dark:border-gray-700">
+              +{project.techStack.length - 4}
+            </span>
+          )}
         </div>
-      </motion.div>
+      </div>
     </motion.article>
   );
 }

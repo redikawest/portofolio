@@ -5,33 +5,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --radius: 0.75rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-  }
-
   * {
     box-sizing: border-box;
   }
@@ -58,58 +31,24 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600;
-  }
-
-  .card-glass {
-    @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-gray-200/60 dark:border-gray-700/60;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-violet-500;
   }
 
   .section-padding {
-    @apply py-24 px-4 sm:px-6 lg:px-8;
+    @apply py-24 lg:py-32 px-6;
   }
 
   .container-max {
-    @apply max-w-6xl mx-auto;
-  }
-
-  .bg-animated-gradient {
-    background: linear-gradient(
-      -45deg,
-      #0ea5e9,
-      #06b6d4,
-      #6366f1,
-      #8b5cf6
-    );
-    background-size: 400% 400%;
-    animation: gradientShift 12s ease infinite;
-  }
-
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    @apply max-w-5xl mx-auto;
   }
 }
 
-/* Scroll progress bar */
-#scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #0ea5e9, #6366f1, #8b5cf6);
-  z-index: 9999;
-  transform-origin: left;
-}
-
-/* Smooth scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-900;
+  @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {

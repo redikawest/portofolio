@@ -1,59 +1,68 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { projects } from "@/lib/data";
+import { Project } from "@/types";
 import ProjectCard from "./ProjectCard";
-import { fadeInUp, staggerContainer } from "@/hooks/useAnimationVariants";
+import ProjectModal from "./ProjectModal";
+import { fadeUp, stagger } from "@/hooks/useAnimationVariants";
 
 export default function Projects() {
+  const [selected, setSelected] = useState<Project | null>(null);
+
   return (
     <section id="projects" className="section-padding">
       <div className="container-max">
         <motion.div
-          variants={staggerContainer}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
         >
-          {/* Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <p className="font-mono text-xs tracking-widest text-cyan-500 mb-3">
-              PORTFOLIO
-            </p>
-            <h2 className="font-display text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">
-              Featured <span className="text-gradient">projects</span>
-            </h2>
-            <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl mx-auto font-body">
-              A selection of things I&apos;ve built — from enterprise platforms to
-              developer tools.
-            </p>
-          </motion.div>
+          <motion.p
+            variants={fadeUp}
+            className="font-mono text-xs tracking-widest text-indigo-500 mb-4"
+          >
+            PROJECTS
+          </motion.p>
 
-          {/* Projects grid */}
+          <motion.h2
+            variants={fadeUp}
+            className="font-display text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-16 max-w-xl leading-tight"
+          >
+            Things I&apos;ve built.
+          </motion.h2>
+
           <motion.div
-            variants={staggerContainer}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            variants={stagger}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
           >
             {projects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                onOpen={setSelected}
+              />
             ))}
           </motion.div>
 
-          {/* CTA */}
-          <motion.div variants={fadeInUp} className="text-center mt-12">
-            <motion.a
+          <motion.div variants={fadeUp} className="mt-12">
+            <a
               href="https://github.com/redikawest"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-medium text-sm font-body text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:border-cyan-400 dark:hover:border-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-400 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm transition-all duration-300"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 text-sm font-body text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
             >
-              View all on GitHub →
-            </motion.a>
+              View more on GitHub
+              <span className="text-indigo-500">→</span>
+            </a>
           </motion.div>
         </motion.div>
       </div>
+
+      <ProjectModal project={selected} onClose={() => setSelected(null)} />
     </section>
   );
 }

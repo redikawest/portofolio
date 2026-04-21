@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 export const metadata: Metadata = {
   title: "Redika Westama Putra — Fullstack Web Engineer",
   description:
-    "Fullstack Web Engineer specializing in Laravel, Next.js, TypeScript, PostgreSQL, and AWS. Building scalable, high-performance web applications.",
+    "Fullstack Web Engineer specializing in Laravel, Next.js, TypeScript, PostgreSQL, and MySQL. Building scalable, high-performance web applications.",
   keywords: [
     "Redika Westama Putra",
     "Fullstack Developer",
@@ -23,14 +23,14 @@ export const metadata: Metadata = {
     url: "https://redika.dev",
     title: "Redika Westama Putra — Fullstack Web Engineer",
     description:
-      "Fullstack Web Engineer specializing in Laravel, Next.js, TypeScript, PostgreSQL, and AWS.",
+      "Fullstack Web Engineer specializing in Laravel, Next.js, TypeScript, PostgreSQL, and MySQL.",
     siteName: "Redika Westama Putra",
   },
   twitter: {
     card: "summary_large_image",
     title: "Redika Westama Putra — Fullstack Web Engineer",
     description:
-      "Fullstack Web Engineer specializing in Laravel, Next.js, TypeScript, PostgreSQL, and AWS.",
+      "Fullstack Web Engineer specializing in Laravel, Next.js, TypeScript, PostgreSQL, and MySQL.",
   },
   robots: {
     index: true,

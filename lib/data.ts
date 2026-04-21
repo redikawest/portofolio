@@ -8,7 +8,8 @@ export const projects: Project[] = [
     techStack: ["Laravel", "Next.js", "TypeScript", "PHP", "PostgreSQL"],
     githubUrl: "",
     liveUrl: "https://pingpong.pro",
-    featured: true,
+    featured: false,
+    image: "/projects/pingpong.png",
   },
   {
     id: "2",
@@ -18,6 +19,7 @@ export const projects: Project[] = [
     githubUrl: "",
     liveUrl: "",
     featured: false,
+    image: "/projects/placeholder.svg",
   },
   {
     id: "3",
@@ -26,7 +28,8 @@ export const projects: Project[] = [
     techStack: ["Laravel", "Laravel Livewire", "Next.js", "MySQL"],
     githubUrl: "",
     liveUrl: "https://canndr.com/",
-    featured: true,
+    featured: false,
+    image: "/projects/canndr.png",
   },
   {
     id: "4",
@@ -36,6 +39,7 @@ export const projects: Project[] = [
     githubUrl: "",
     liveUrl: "",
     featured: false,
+    image: "/projects/placeholder.svg",
   },
   {
     id: "5",
@@ -45,6 +49,7 @@ export const projects: Project[] = [
     githubUrl: "",
     liveUrl: "https://indolab.com",
     featured: false,
+    image: "/projects/placeholder.svg",
   },
   {
     id: "6",
@@ -54,6 +59,7 @@ export const projects: Project[] = [
     githubUrl: "",
     liveUrl: "https://connect.kemenkeu.go.id/beranda/",
     featured: false,
+    image: "/projects/cbt.png",
   },
   {
     id: "7",
@@ -63,6 +69,7 @@ export const projects: Project[] = [
     githubUrl: "",
     liveUrl: "https://seeds.finance/",
     featured: false,
+    image: "/projects/seeds.png",
   },
 ];
 
