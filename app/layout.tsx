@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://redikawest-portofolio.vercel.app"),
   title: "Redika Westama Putra — Fullstack Web Engineer",
   description:
     "Fullstack Web Engineer specializing in Laravel, Next.js, TypeScript, PostgreSQL, and MySQL. Building scalable, high-performance web applications.",
@@ -36,6 +37,40 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: "/",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Redika Westama Putra",
+  url: "https://redikawest-portofolio.vercel.app",
+  jobTitle: "Fullstack Web Engineer",
+  email: "redikawest@gmail.com",
+  image: "https://redikawest-portofolio.vercel.app/profile.jpg",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bali",
+    addressCountry: "ID",
+  },
+  sameAs: [
+    "https://github.com/redikawest",
+    "https://linkedin.com/in/redikawest",
+  ],
+  knowsAbout: [
+    "Laravel",
+    "Next.js",
+    "React.js",
+    "TypeScript",
+    "PHP",
+    "PostgreSQL",
+    "MySQL",
+    "Node.js",
+    "Express.js",
+    "Docker",
+  ],
 };
 
 export default function RootLayout({
@@ -45,6 +80,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="antialiased">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
