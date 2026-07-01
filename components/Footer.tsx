@@ -4,13 +4,13 @@ import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200 dark:border-gray-800">
+    <footer className="border-t border-hairline/15">
       <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-6">
-          <span className="font-display font-bold text-gray-900 dark:text-white">
-            rw<span className="text-indigo-500">.</span>
+          <span className="font-display font-bold text-ink">
+            rw<span className="text-accent">.</span>
           </span>
-          <p className="text-xs font-body text-gray-400 dark:text-gray-500">
+          <p className="text-xs font-body text-muted/70">
             © {new Date().getFullYear()} Redika Westama Putra
           </p>
         </div>
@@ -27,17 +27,17 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-muted hover:text-ink border border-hairline/25 hover:border-accent/40 hover:bg-accent/5 transition-all shadow-sm"
             >
               <Icon size={14} />
             </a>
           ))}
 
-          <div className="w-px h-4 bg-gray-200 dark:bg-gray-800 mx-1" />
+          <div className="w-px h-4 bg-hairline/25 mx-1" />
 
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 transition-all"
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-muted hover:text-ink border border-hairline/25 hover:border-accent/40 hover:bg-accent/5 transition-all shadow-sm"
             aria-label="Back to top"
           >
             <ArrowUp size={14} />

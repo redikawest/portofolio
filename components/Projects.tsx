@@ -6,7 +6,16 @@ import { projects } from "@/lib/data";
 import { Project } from "@/types";
 import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
-import { fadeUp, stagger } from "@/hooks/useAnimationVariants";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
 
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
@@ -22,22 +31,19 @@ export default function Projects() {
         >
           <motion.p
             variants={fadeUp}
-            className="font-mono text-xs tracking-widest text-indigo-500 mb-4"
+            className="font-mono text-xs tracking-widest text-muted mb-4"
           >
             PROJECTS
           </motion.p>
 
           <motion.h2
             variants={fadeUp}
-            className="font-display text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-16 max-w-xl leading-tight"
+            className="font-display text-4xl sm:text-5xl font-bold text-ink mb-16 max-w-xl leading-tight"
           >
             Things I&apos;ve built.
           </motion.h2>
 
-          <motion.div
-            variants={stagger}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
-          >
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.id}
@@ -46,17 +52,19 @@ export default function Projects() {
                 onOpen={setSelected}
               />
             ))}
-          </motion.div>
+          </div>
 
           <motion.div variants={fadeUp} className="mt-12">
             <a
               href="https://github.com/redikawest"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-body text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm font-body text-muted hover:text-ink transition-colors duration-200 group"
             >
               View more on GitHub
-              <span className="text-indigo-500">→</span>
+              <span className="text-accent group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                →
+              </span>
             </a>
           </motion.div>
         </motion.div>

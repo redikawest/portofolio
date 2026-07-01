@@ -1,26 +1,61 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { fadeUp, stagger } from "@/hooks/useAnimationVariants";
+import { Cloud, Database, Monitor, Server, type LucideIcon } from "lucide-react";
+import { skillCategories } from "@/lib/data";
 
-const skillGroups = [
-  {
-    category: "Frontend",
-    skills: ["Next.js", "React.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion", "Laravel Livewire"],
-  },
-  {
-    category: "Backend",
-    skills: ["Laravel", "Node.js", "Express.js", "PHP", "REST API", "Microservices"],
-  },
-  {
-    category: "Database",
-    skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma ORM", "Eloquent ORM"],
-  },
-  {
-    category: "DevOps & Tools",
-    skills: ["Docker", "Nginx", "GitHub Actions", "AWS", "Linux", "CI/CD"],
-  },
-];
+const ICONS: Record<string, LucideIcon> = { Monitor, Server, Database, Cloud };
+
+const SEGMENTS = 8;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+function SkillRow({ name, level, delay }: { name: string; level: number; delay: number }) {
+  const filled = Math.round((level / 100) * SEGMENTS);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      tabIndex={0}
+      className="group flex items-center justify-between gap-4 py-2.5 border-b border-hairline/10 last:border-0 focus:outline-none"
+    >
+      <span className="text-sm font-mono text-ink/90 group-hover:text-accent group-focus:text-accent transition-colors">
+        {name}
+      </span>
+      <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-1">
+          {Array.from({ length: SEGMENTS }).map((_, i) => (
+            <span key={i} className="w-2.5 h-1.5 rounded-[2px] bg-hairline/20 overflow-hidden">
+              {i < filled && (
+                <motion.span
+                  className="block w-full h-full bg-accent origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: delay + 0.15 + i * 0.03, duration: 0.3, ease: "easeOut" }}
+                />
+              )}
+            </span>
+          ))}
+        </div>
+        <span className="text-[10px] font-mono text-muted w-8 text-right opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
+          {level}%
+        </span>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Skills() {
   return (
@@ -34,36 +69,47 @@ export default function Skills() {
         >
           <motion.p
             variants={fadeUp}
-            className="font-mono text-xs tracking-widest text-indigo-500 mb-4"
+            className="font-mono text-xs tracking-widest text-muted mb-4"
           >
             SKILLS
           </motion.p>
 
           <motion.h2
             variants={fadeUp}
-            className="font-display text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-16 max-w-xl leading-tight"
+            className="font-display text-4xl sm:text-5xl font-bold text-ink mb-4 max-w-xl leading-tight"
           >
             My tech stack.
           </motion.h2>
+          <motion.p variants={fadeUp} className="text-muted/70 font-body text-sm mb-16">
+            Hover or focus a skill to see proficiency
+          </motion.p>
 
-          <div className="grid sm:grid-cols-2 gap-x-16 gap-y-12">
-            {skillGroups.map((group) => (
-              <motion.div key={group.category} variants={fadeUp}>
-                <h3 className="text-xs font-mono tracking-widest text-gray-400 dark:text-gray-500 mb-4 uppercase">
-                  {group.category}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {group.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1.5 rounded-lg text-sm font-body text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-700 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 cursor-default"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+          <div className="grid sm:grid-cols-2 gap-12">
+            {skillCategories.map((group, gi) => {
+              const Icon = ICONS[group.icon] ?? Monitor;
+              return (
+                <motion.div key={group.name} variants={fadeUp}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <Icon size={16} className="text-accent" strokeWidth={1.75} />
+                    <h3 className="text-xs font-mono tracking-widest text-muted uppercase">
+                      {group.name}
+                    </h3>
+                    <div className="flex-1 h-px bg-hairline/15" />
+                  </div>
+
+                  <div>
+                    {group.skills.map((skill, si) => (
+                      <SkillRow
+                        key={skill.name}
+                        name={skill.name}
+                        level={skill.level}
+                        delay={gi * 0.05 + si * 0.03}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import { fadeUp, stagger } from "@/hooks/useAnimationVariants";
 
 interface Experience {
   id: string;
@@ -114,122 +113,141 @@ const experiences: Experience[] = [
   },
 ];
 
-const typeColors: Record<Experience["type"], string> = {
-  "Full-time": "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/40",
-  "Freelance": "bg-violet-50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 border-violet-200 dark:border-violet-800/40",
-  "Contract": "bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800/40",
-  "Internship": "bg-sky-50 dark:bg-sky-950/30 text-sky-600 dark:text-sky-400 border-sky-200 dark:border-sky-800/40",
-};
-
 export default function WorkExperience() {
   return (
     <section id="experience" className="section-padding">
       <div className="container-max">
         <motion.div
-          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
         >
           <motion.p
-            variants={fadeUp}
-            className="font-mono text-xs tracking-widest text-indigo-500 mb-4"
+            variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } } }}
+            className="font-mono text-xs tracking-widest text-muted mb-4"
           >
             EXPERIENCE
           </motion.p>
 
           <motion.h2
-            variants={fadeUp}
-            className="font-display text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-16 max-w-xl leading-tight"
+            variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } } }}
+            className="font-display text-4xl sm:text-5xl font-bold text-ink mb-16 max-w-xl leading-tight"
           >
             Where I&apos;ve worked.
           </motion.h2>
 
           <div className="relative max-w-3xl">
-            {/* Timeline line */}
-            <div className="absolute left-0 top-2 bottom-0 w-px bg-gray-200 dark:bg-gray-800 hidden sm:block" />
+            {/* Timeline rule — drawn as an SVG path reveal */}
+            <div className="absolute left-0 top-2 bottom-2 w-px hidden sm:block">
+              <svg className="absolute inset-0 h-full w-px overflow-visible" viewBox="0 0 1 1" preserveAspectRatio="none">
+                <line x1="0.5" y1="0" x2="0.5" y2="1" className="stroke-hairline/20" strokeWidth={1} vectorEffect="non-scaling-stroke" />
+                <motion.line
+                  x1="0.5" y1="0" x2="0.5" y2="1"
+                  className="stroke-accent"
+                  strokeWidth={1.5}
+                  vectorEffect="non-scaling-stroke"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
+                />
+              </svg>
+            </div>
 
-            <div className="space-y-12">
-              {experiences.map((exp, index) => (
-                <motion.div
-                  key={exp.id}
-                  variants={fadeUp}
-                  custom={index}
-                  className="relative sm:pl-10"
-                >
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 top-1.5 hidden sm:flex items-center justify-center -translate-x-[3px]">
-                    <div className={`w-1.5 h-1.5 rounded-full ${exp.current ? "bg-indigo-500" : "bg-gray-300 dark:bg-gray-700"}`} />
-                  </div>
+            <div className="space-y-10">
+              {experiences.map((exp, index) => {
+                return (
+                  <motion.div
+                    key={exp.id}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.06 }}
+                    className="relative sm:pl-10"
+                  >
+                    {/* Timeline dot */}
+                    <div className="absolute left-0 top-4 hidden sm:flex items-center justify-center -translate-x-[3px] z-10">
+                      {exp.current ? (
+                        <div className="relative w-2.5 h-2.5">
+                          <div className="absolute inset-0 rounded-full bg-accent animate-ping opacity-30" />
+                          <div className="relative w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(196,98,45,0.6)]" />
+                        </div>
+                      ) : (
+                        <div className="w-1.5 h-1.5 rounded-full bg-canvas border border-hairline/40" />
+                      )}
+                    </div>
 
-                  {/* Date + type */}
-                  <div className="flex flex-wrap items-center gap-3 mb-3">
-                    <span className="text-xs font-mono text-gray-400 dark:text-gray-500">
-                      {exp.startDate} — {exp.endDate}
-                    </span>
-                    <span className={`px-2 py-0.5 rounded-md text-[11px] font-mono border ${typeColors[exp.type]}`}>
-                      {exp.type}
-                    </span>
-                    {exp.current && (
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-indigo-500 dark:text-indigo-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-                        Current
-                      </span>
-                    )}
-                  </div>
+                    {/* Card */}
+                    <div className="glass-card-hover rounded-2xl p-6 shadow-sm">
+                      {/* Date + type */}
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <span className="text-xs font-mono text-muted/70">
+                          {exp.startDate} — {exp.endDate}
+                        </span>
+                        <span className="px-2 py-0.5 rounded-md text-[11px] font-mono border border-hairline/30 text-muted bg-canvas/40">
+                          {exp.type}
+                        </span>
+                        {exp.current && (
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-accent">
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                            HEAD
+                          </span>
+                        )}
+                      </div>
 
-                  {/* Role + company */}
-                  <h3 className="font-display font-bold text-xl text-gray-900 dark:text-white mb-0.5">
-                    {exp.role}
-                  </h3>
-                  <div className="flex items-center gap-1.5 mb-4">
-                    {exp.companyUrl ? (
-                      <a
-                        href={exp.companyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm font-body text-indigo-500 dark:text-indigo-400 hover:underline"
-                      >
-                        {exp.company}
-                        <ExternalLink size={11} />
-                      </a>
-                    ) : (
-                      <span className="text-sm font-body text-gray-600 dark:text-gray-400">
-                        {exp.company}
-                      </span>
-                    )}
-                    <span className="text-gray-300 dark:text-gray-700">·</span>
-                    <span className="text-sm font-body text-gray-500 dark:text-gray-500">
-                      {exp.location}
-                    </span>
-                  </div>
+                      {/* Role */}
+                      <h3 className="font-display font-bold text-xl text-ink mb-0.5">
+                        {exp.role}
+                      </h3>
 
-                  {/* Achievements */}
-                  <ul className="space-y-2 mb-4">
-                    {exp.achievements.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400 font-body leading-relaxed"
-                      >
-                        <span className="mt-2 shrink-0 w-1 h-1 rounded-full bg-gray-400 dark:bg-gray-600" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                      {/* Company */}
+                      <div className="flex items-center gap-1.5 mb-4">
+                        {exp.companyUrl ? (
+                          <a
+                            href={exp.companyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-sm font-body text-accent hover:text-accent/80 transition-colors"
+                          >
+                            {exp.company}
+                            <ExternalLink size={11} />
+                          </a>
+                        ) : (
+                          <span className="text-sm font-body text-muted">{exp.company}</span>
+                        )}
+                        <span className="text-hairline/60">·</span>
+                        <span className="text-sm font-body text-muted/70">{exp.location}</span>
+                      </div>
 
-                  {/* Tech stack */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {exp.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
+                      {/* Achievements */}
+                      <ul className="space-y-2 mb-4">
+                        {exp.achievements.map((item, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start gap-3 text-sm text-muted font-body leading-relaxed"
+                          >
+                            <span className="mt-2 shrink-0 w-1 h-1 rounded-full bg-hairline/60" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Tech stack */}
+                      <div className="flex flex-wrap gap-1.5">
+                        {exp.techStack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-0.5 rounded-md text-[11px] font-mono bg-canvas/40 text-muted border border-hairline/25"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </motion.div>
